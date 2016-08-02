@@ -94,7 +94,8 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 * tBodyGyroMean
 * tBodyGyroJerkMean
 
-
+Features/Variables:
+===================
 
 
 
