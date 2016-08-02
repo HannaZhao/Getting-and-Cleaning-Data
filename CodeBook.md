@@ -93,8 +93,24 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 * tBodyGyroMean
 * tBodyGyroJerkMean
 
+subject variable:
+===================
+* test persons number [1..30]
+ 
+activity variable:
+===================
+* activity labels 
+** WALKING
+** LAYING
+** WALKING_UPSTAIRS
+** WALKING_DOWNSTAIRS
+** LAYING
+** STAYING
+
 Features/Variables outputSummarizedDataSet_Raw.csv:
 ===================
+* all values are normalized to [-1;1]
+
 1. tBodyAcc-mean()-X
 2. tBodyAcc-mean()-Y
 3. tBodyAcc-mean()-Z
@@ -166,7 +182,7 @@ Features/Variables outputSummarizedDataSet_Raw.csv:
 Features/Variables outputSummarizedDataSet_Means.csv:
 ===================
 The data set contains the average values for each variable from above grouped per subject and per activity
-
+* all values are normalized to [-1;1]
 
 
 License:
