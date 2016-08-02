@@ -93,6 +93,8 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 * tBodyGyroMean
 * tBodyGyroJerkMean
 
+# outputSummarizedDataSet_Raw.csv
+
 subject variable:
 ===================
 * test persons number [1..30]
@@ -107,7 +109,7 @@ activity variable:
 ** LAYING
 ** STAYING
 
-Features/Variables outputSummarizedDataSet_Raw.csv:
+Features variables 
 ===================
 * all values are normalized to [-1;1]
 
@@ -178,8 +180,23 @@ Features/Variables outputSummarizedDataSet_Raw.csv:
 * fBodyBodyGyroJerkMag-mean()
 * fBodyBodyGyroJerkMag-std()
 
+# outputSummarizedDataSet_Means.csv
 
-Features/Variables outputSummarizedDataSet_Means.csv:
+subject variable:
+===================
+* test persons number [1..30]
+ 
+activity variable:
+===================
+* activity labels 
+*+ WALKING
+** LAYING
+** WALKING_UPSTAIRS
+** WALKING_DOWNSTAIRS
+** LAYING
+** STAYING
+
+Features variables 
 ===================
 The data set contains the average values for each variable from above grouped per subject and per activity
 * all values are normalized to [-1;1]
