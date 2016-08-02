@@ -163,8 +163,9 @@ Features/Variables outputSummarizedDataSet_Raw.csv:
 * fBodyBodyGyroJerkMag-std()
 
 
-
-
+Features/Variables outputSummarizedDataSet_Means.csv:
+===================
+The data set contains the average values for each variable from above grouped per subject and per activity
 
 
 
