@@ -33,12 +33,7 @@ The dataset includes the following files:
 
 * 'README.md'
 
-* "./data/outputSummarizedDataSet_Raw.csv" - a csv file with combined train-test data set, only mean() and std() variables of measurements, so called feature values
-* "./data/outputSummarizedDataSet_Means.csv" - a csv file with average of each variable for each activity and each subject
-* "./data/outputSummarizedDataSet_Means.csv"
-* "./data/Timestamp_Course_Project.txt" - Timestamp of download time
-* outputMeanStdDF - data frame with combined train-test data set, only mean() and std() variables of measurements
-* outputSummarizedDFMeans - data frame with average of each variable for each activity and each subject
+* "./data/outputSummarizedDataSet_Means.csv" - a txt file with average of each variable for each activity and each subject
 
  
 
@@ -93,7 +88,7 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 * tBodyGyroMean
 * tBodyGyroJerkMean
 
-# outputSummarizedDataSet_Raw.csv
+# outputSummarizedDataSet_Means.txt
 
 subject variable:
 ===================
@@ -112,7 +107,8 @@ activity labels
 
 Features variables 
 ===================
-all values are normalized to [-1;1]
+* all values are normalized to [-1;1]
+* all values are the average values for each variable grouped by subject and by activity.
 
 1. tBodyAcc-mean()-X
 2. tBodyAcc-mean()-Y
@@ -181,28 +177,7 @@ all values are normalized to [-1;1]
 * fBodyBodyGyroJerkMag-mean()
 * fBodyBodyGyroJerkMag-std()
 
-# outputSummarizedDataSet_Means.csv
 
-subject variable:
-===================
-test persons number 
-* [1..30]
- 
-activity variable:
-===================
-activity labels 
-+ WALKING
-+ LAYING
-+ WALKING_UPSTAIRS
-+ WALKING_DOWNSTAIRS
-+ LAYING
-+ STAYING
-
-Features variables 
-===================
-The data set contains the average values for each variable from above grouped per subject and per activity. 
-all values are normalized to 
-* [-1;1]
 
 
 License:
