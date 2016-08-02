@@ -101,9 +101,9 @@ subject variable:
  
 activity variable:
 ===================
-* activity labels 
-++ WALKING
-++ LAYING
+activity labels 
++ WALKING
++ LAYING
 + WALKING_UPSTAIRS
 + WALKING_DOWNSTAIRS
 + LAYING
@@ -111,7 +111,7 @@ activity variable:
 
 Features variables 
 ===================
-* all values are normalized to [-1;1]
+all values are normalized to [-1;1]
 
 1. tBodyAcc-mean()-X
 2. tBodyAcc-mean()-Y
@@ -184,11 +184,12 @@ Features variables
 
 subject variable:
 ===================
-* test persons number [1..30]
+test persons number 
+* [1..30]
  
 activity variable:
 ===================
-* activity labels 
+activity labels 
 + WALKING
 + LAYING
 + WALKING_UPSTAIRS
@@ -199,7 +200,8 @@ activity variable:
 Features variables 
 ===================
 The data set contains the average values for each variable from above grouped per subject and per activity
-* all values are normalized to [-1;1]
+all values are normalized to 
+* [-1;1]
 
 
 License:
