@@ -1,4 +1,4 @@
-# Getting-and-Cleaning-Data
+# Readme
 Getting and Cleaning Data Course Project
 
 The data retrieving and manipulation(transformation) proceeds automatically. You don't need to set additional parameters. But be aware to properly set the working directory!
