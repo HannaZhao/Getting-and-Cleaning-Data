@@ -102,12 +102,12 @@ subject variable:
 activity variable:
 ===================
 * activity labels 
-** WALKING
-** LAYING
-** WALKING_UPSTAIRS
-** WALKING_DOWNSTAIRS
-** LAYING
-** STAYING
++ WALKING
++ LAYING
++ WALKING_UPSTAIRS
++ WALKING_DOWNSTAIRS
++ LAYING
++ STAYING
 
 Features variables 
 ===================
@@ -189,12 +189,12 @@ subject variable:
 activity variable:
 ===================
 * activity labels 
-*+ WALKING
-** LAYING
-** WALKING_UPSTAIRS
-** WALKING_DOWNSTAIRS
-** LAYING
-** STAYING
++ WALKING
++ LAYING
++ WALKING_UPSTAIRS
++ WALKING_DOWNSTAIRS
++ LAYING
++ STAYING
 
 Features variables 
 ===================
