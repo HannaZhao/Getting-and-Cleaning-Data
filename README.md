@@ -25,5 +25,5 @@ Steps are:
 
 1. The script run_analysis.R checks if the folder "data" is in the working directory. If not, the folder will be created
 2. The RAW-data from the provided URL will be downloaded. The script checks, if the ZIP is already in the "data" folder to prevent unnessesary downloads
-3. ZIP will be unzipped
-4. WARNING! on some environments I experienced problems with the step (probably environment settings). In that case simply disable the line 32, download and unzip the raw data set into the "data" directory
+3. ZIP will be unzipped to "data" directory
+
