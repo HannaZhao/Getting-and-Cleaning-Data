@@ -97,7 +97,8 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 
 subject variable:
 ===================
-* test persons number [1..30]
+test persons number 
+* [1..30]
  
 activity variable:
 ===================
@@ -199,7 +200,7 @@ activity labels
 
 Features variables 
 ===================
-The data set contains the average values for each variable from above grouped per subject and per activity
+The data set contains the average values for each variable from above grouped per subject and per activity. 
 all values are normalized to 
 * [-1;1]
 
