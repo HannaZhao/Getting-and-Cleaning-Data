@@ -102,8 +102,8 @@ subject variable:
 activity variable:
 ===================
 * activity labels 
-+ WALKING
-+ LAYING
+++ WALKING
+++ LAYING
 + WALKING_UPSTAIRS
 + WALKING_DOWNSTAIRS
 + LAYING
