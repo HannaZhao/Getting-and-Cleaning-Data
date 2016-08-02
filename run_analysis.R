@@ -1,18 +1,14 @@
 downloadAndUnzip <- function (url, path) {
   fileURL <- url
   filePath <- path
-  # create "data" directory in working directory if not exists
-  if(!dir.exists("./data")){
-    dir.create("./data")
-  }
   #Downloads Zip if not already done
   if(!file.exists(filePath)){
     download.file(fileURL, filePath, method = "curl")
   }
-  unzip(filePath, exdir = "./data", overwrite = TRUE)
+  unzip(filePath, overwrite = TRUE)
 }
 
-pkgTest <- function(packageName)
+packageTest <- function(packageName)
 {
   if (!require(packageName,character.only = TRUE))
   {
@@ -24,29 +20,27 @@ pkgTest <- function(packageName)
 #------------------Download and Unzip data set-START-------------------------------------
 
 fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-archivePath <- "./data/UCIDataset.zip"
-outputPathDataSetMeans <- "./data/outputSummarizedDataSet_Means.csv"
-outputPathDataSetRaw <- "./data/outputSummarizedDataSet_Raw.csv"
-outputPathTimestamp <- "./data/Timestamp_Course_Project.txt"
+archivePath <- "./UCIDataset.zip"
+outputPathDataSetMeans <- "./outputSummarizedDataSet_Means.txt"
 
 downloadAndUnzip(fileURL, archivePath)
 downloadTime <- date()
 
 #------------------Download and Unzip data set-FINISH-------------------------------------
 
-pkgTest("dplyr")
+packageTest("dplyr")
 library(dplyr)
 
 #------------------Set paths-START--------------------------------------------------------
 
-filePathFeatures <- "./data/UCI HAR Dataset/features.txt"
-filePathActivityLabels <- "./data/UCI HAR Dataset/activity_labels.txt"
-filePathSubjectTest <- "./data/UCI HAR Dataset/test/subject_test.txt"
-filePathXTest <- "./data/UCI HAR Dataset/test/X_test.txt"
-filePathYTest <- "./data/UCI HAR Dataset/test/y_test.txt"
-filePathSubjectTrain <- "./data/UCI HAR Dataset/train/subject_train.txt"
-filePathXTrain <- "./data/UCI HAR Dataset/train/X_train.txt"
-filePathYTrain <- "./data/UCI HAR Dataset/train/y_train.txt"
+filePathFeatures <- "./UCI HAR Dataset/features.txt"
+filePathActivityLabels <- "./UCI HAR Dataset/activity_labels.txt"
+filePathSubjectTest <- "./UCI HAR Dataset/test/subject_test.txt"
+filePathXTest <- "./UCI HAR Dataset/test/X_test.txt"
+filePathYTest <- "./UCI HAR Dataset/test/y_test.txt"
+filePathSubjectTrain <- "./UCI HAR Dataset/train/subject_train.txt"
+filePathXTrain <- "./UCI HAR Dataset/train/X_train.txt"
+filePathYTrain <- "./UCI HAR Dataset/train/y_train.txt"
 
 #------------------Set paths-FINISH-------------------------------------------------------
 
@@ -112,16 +106,19 @@ outputSummarizedDFMeans <- outputMeanStdDF %>% group_by(subject, activity) %>% s
 
 #------------------Getting the average of each variable for each activity and each subject--
 
+
+#------------------Write output files-START-------------------------------------------------
+
+write.table(outputSummarizedDFMeans, outputPathDataSetMeans, row.names = FALSE)
+
+#------------------Write output files-FINISH------------------------------------------------
+
 #------------------Cleanup unsed variables-START--------------------------------------------
 
-rm("xTestDF", "yTestDF", "xTrainDF", "yTrainDF", "subjectTestDF", "subjectTrainDF", "featuresDF", "activityLabelsDF")
+rm("outputPathDataSetMeans","xTestDF", "yTestDF", "xTrainDF", "yTrainDF", "subjectTestDF", "subjectTrainDF", "featuresDF", "activityLabelsDF")
 rm("fileURL", "filePathActivityLabels", "filePathFeatures", "filePathSubjectTest", "filePathSubjectTrain", "filePathXTest", "filePathYTest", "filePathXTrain", "filePathYTrain")
-rm("mergedTrainActivities", "mergedTestActivities", "mergedTrainDF", "mergedTestDF", "mergedTrainMeanStd", "mergedTestMeanStd", "unpreparedMeanStdDF")
+rm("mergedTrainDF", "mergedTestDF", "mergedTrainMeanStd", "mergedTestMeanStd", "unpreparedMeanStdDF", "outputMeanStdDF")
+rm("archivePath")
 
 #------------------Cleanup unsed variables-START--------------------------------------------
-
-
-write.table(downloadTime, outputPathTimestamp, row.names = FALSE, col.names = FALSE)
-write.csv(outputSummarizedDFMeans, outputPathDataSetMeans)
-write.csv(outputMeanStdDF, outputPathDataSetRaw)
 
