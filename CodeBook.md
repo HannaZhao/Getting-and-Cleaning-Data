@@ -33,7 +33,7 @@ The dataset includes the following files:
 
 * 'README.md'
 
-* "./data/outputSummarizedDataSet_Raw.csv" - a csv file with combined train-test data set, only mean() and std() variables of measurements
+* "./data/outputSummarizedDataSet_Raw.csv" - a csv file with combined train-test data set, only mean() and std() variables of measurements, so called feature values
 * "./data/outputSummarizedDataSet_Means.csv" - a csv file with average of each variable for each activity and each subject
 * "./data/outputSummarizedDataSet_Means.csv"
 * "./data/Timestamp_Course_Project.txt" - Timestamp of download time
