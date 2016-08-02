@@ -1,7 +1,7 @@
 # Getting-and-Cleaning-Data
 Getting and Cleaning Data Course Project
 
-The data retrieving and manipulation(transformation) proceeds automatically. 
+The data retrieving and manipulation(transformation) proceeds automatically. You don't need to set additional parameters. But be aware to properly set the working directory!
 
 Inputs are:
 * "./data/UCI HAR Dataset/features.txt"
@@ -26,4 +26,11 @@ Steps are:
 1. The script run_analysis.R checks if the folder "data" is in the working directory. If not, the folder will be created
 2. The RAW-data from the provided URL will be downloaded. The script checks, if the ZIP is already in the "data" folder to prevent unnessesary downloads
 3. ZIP will be unzipped to "data" directory
+4. Train and test data sets will be proceeded separatelly and put together in the final step
+5. Three output files will be generated and put into your "data" folder
+6. Two output data frames are ready for further operations
+7. Afterwards all remaining created variables will be deleted
+8. 
+
+Enjoy the script and Data Science!
 
