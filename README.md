@@ -27,8 +27,12 @@ Steps are:
 2. The RAW-data from the provided URL will be downloaded. The script checks, if the ZIP is already in the "data" folder to prevent unnessesary downloads
 3. ZIP will be unzipped to "data" directory
 4. Train and test data sets will be proceeded separatelly and put together in the final step
-4.1 
-4.2
+* First, the columns for subjects (subject_train.txt/subject_test.txt) and activities (y_train.txt/y_test.txt are added to the feature data frames (X_train.txt/X_test.txt)
+* Then, the columns are named "subject", "activity" following by 561 names of the features(variables) from features.txt
+* After it in the column "activity" the numbers are substituted by the readable activity names (from activity_labels.txt)
+* Then in the train and test data sets all columns are removed exept of those with "mean()" and "std()" 
+* In the next step the train and test data sets are combined to one data set
+* Finally, the second intependent data set with average of each variable for each activity and each subject is created
 5. Three output files will be generated and put into your "data" folder
 6. Two output data frames are ready for further operations
 7. Afterwards all remaining created variables will be deleted
