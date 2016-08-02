@@ -4,9 +4,9 @@ Getting and Cleaning Data Course Project
 The data retrieving and manipulation(transformation) proceeds automatically. 
 
 Inputs are:
-"./data/UCI HAR Dataset/features.txt"
-"./data/UCI HAR Dataset/activity_labels.txt"
-"./data/UCI HAR Dataset/test/subject_test.txt"
+* "./data/UCI HAR Dataset/features.txt"
+* "./data/UCI HAR Dataset/activity_labels.txt"
+* "./data/UCI HAR Dataset/test/subject_test.txt"
 "./data/UCI HAR Dataset/test/X_test.txt"
 "./data/UCI HAR Dataset/test/y_test.txt"
 "./data/UCI HAR Dataset/train/subject_train.txt"
