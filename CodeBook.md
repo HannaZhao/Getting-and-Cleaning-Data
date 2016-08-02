@@ -23,25 +23,26 @@ For each record it is provided:
 * Its activity label. 
 * An identifier of the subject who carried out the experiment.
 
-In a separate data set is provided:
+For each record is provided:
 ======================================
 
 * Average feature values per subject per activity for variables(features) which calculated "mean()" and "std()" functions
+* Its activity label. 
+* An identifier of the subject who carried out the experiment.
 
 The dataset includes the following files:
 =========================================
 
 * 'README.md'
 
-* "./data/outputSummarizedDataSet_Means.csv" - a txt file with average of each variable for each activity and each subject
+* "./data/outputSummarizedDataSet_Means.txt" - a txt file with average of each variable for each activity and each subject
 
  
 
 Notes: 
 ======
 * Features are normalized and bounded within [-1,1].
-* Each feature vector is a row on the csv file outputSummarizedDataSet_Raw.csv / raw data
-* Each feature value in the csv file outputSummarizedDataSet_Means.csv is an average value of the corresponding feature value /processed data 
+* Each feature value in the txt file outputSummarizedDataSet_Means.txt is an average value of the corresponding feature value  
 
 
 Feature Selection 
@@ -79,14 +80,7 @@ The set of variables that were estimated from these signals are:
 * mean(): Mean value
 * std(): Standard deviation
 
-
-Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
-
-* gravityMean
-* tBodyAccMean
-* tBodyAccJerkMean
-* tBodyGyroMean
-* tBodyGyroJerkMean
+In the next step the average was estimated for each variable per subject per activity
 
 # outputSummarizedDataSet_Means.txt
 
