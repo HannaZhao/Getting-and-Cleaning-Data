@@ -9,7 +9,7 @@ downloadAndUnzip <- function (url, path) {
   if(!file.exists(filePath)){
     download.file(fileURL, filePath, method = "curl")
   }
-  unzip(filePath, overwrite = TRUE)
+  unzip(filePath, exdir = "./data", overwrite = TRUE)
 }
 
 pkgTest <- function(packageName)
@@ -25,7 +25,8 @@ pkgTest <- function(packageName)
 
 fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 archivePath <- "./data/UCIDataset.zip"
-outputPathDataSet <- "./data/outputDataSet.csv"
+outputPathDataSetMeans <- "./data/outputSummarizedDataSet_Means.csv"
+outputPathDataSetRaw <- "./data/outputSummarizedDataSet_Raw.csv"
 outputPathTimestamp <- "./data/Timestamp_Course_Project.txt"
 
 downloadAndUnzip(fileURL, archivePath)
@@ -49,88 +50,78 @@ filePathYTrain <- "./data/UCI HAR Dataset/train/y_train.txt"
 
 #------------------Set paths-FINISH-------------------------------------------------------
 
-#Debugging settings
-countLimit <- 100 #-1 for productive case
-
-#Debugging settings
 
 
 #------------------Read features and activity labels-START--------------------------------
 
-featuresDF <- read.csv(filePathFeatures, sep = " ", header = FALSE, stringsAsFactors = FALSE)
-activityLabelsDF <- read.csv(filePathActivityLabels, sep = " ", header = FALSE, stringsAsFactors = FALSE)
+featuresDF <- read.table(filePathFeatures,  stringsAsFactors = FALSE)
+activityLabelsDF <- read.table(filePathActivityLabels,  stringsAsFactors = FALSE)
 
 #------------------Read features and activity labels-FINISH-------------------------------
 
 #------------------Read training data-START-----------------------------------------------
 
-subjectTrainDF <- read.csv(filePathSubjectTrain, sep = " ", header = FALSE, nrows = countLimit, stringsAsFactors = FALSE)
-yTrainDF <- read.csv(filePathYTrain, sep = " ", header = FALSE, nrows = countLimit, stringsAsFactors = FALSE)
-xTrainDF <- read.fwf(filePathXTrain, widths = rep(16, times=561), n = countLimit)
+subjectTrainDF <- read.table(filePathSubjectTrain, stringsAsFactors = FALSE)
+yTrainDF <- read.table(filePathYTrain, stringsAsFactors = FALSE)
+xTrainDF <- read.table(filePathXTrain, stringsAsFactors = FALSE)
 
 #------------------Read training data-FINISH----------------------------------------------
 
 #------------------Read test data-START---------------------------------------------------
 
-subjectTestDF <- read.csv(filePathSubjectTest, sep = " ", header = FALSE, nrows = countLimit, stringsAsFactors = FALSE)
-yTestDF <- read.csv(filePathYTest, sep = " ", header = FALSE, nrows = countLimit, stringsAsFactors = FALSE)
-xTestDF <- read.fwf(filePathXTest, widths = rep(16, times=561), n = countLimit)
+subjectTestDF <- read.table(filePathSubjectTest, stringsAsFactors = FALSE)
+yTestDF <- read.table(filePathYTest, stringsAsFactors = FALSE)
+xTestDF <- read.table(filePathXTest, stringsAsFactors = FALSE)
 
 #------------------Read test data-FINISH--------------------------------------------------
 
 #------------------Merge training data-START----------------------------------------------
-mergedTrainActivities <- merge(yTrainDF, activityLabelsDF, all.x = TRUE)
-mergedTrainDF <- cbind(c(subjectTrainDF, as.data.frame(mergedTrainActivities$V2, stringsAsFactors=FALSE)), xTrainDF, stringsAsFactors=FALSE)
+
+mergedTrainDF <- cbind(subjectTrainDF, yTrainDF, xTrainDF, stringsAsFactors=FALSE)
 colnames(mergedTrainDF) <- c("subject", "activity", featuresDF$V2)
+mergedTrainDF$activity <- factor(mergedTrainDF$activity, labels = activityLabelsDF$V2)
 
 #------------------Merge training data-FINISH----------------------------------------------
 
 #------------------Merge test data-START---------------------------------------------------
 
-mergedTestActivities <- merge(yTestDF, activityLabelsDF, all.x = TRUE)
-mergedTestDF <- cbind(c(subjectTestDF, as.data.frame(mergedTestActivities$V2, stringsAsFactors=FALSE)), xTestDF, stringsAsFactors=FALSE)
+mergedTestDF <- cbind(subjectTestDF, yTestDF, xTestDF, stringsAsFactors=FALSE)
 colnames(mergedTestDF) <- c("subject", "activity", featuresDF$V2)
+mergedTestDF$activity <- factor(mergedTestDF$activity, labels = activityLabelsDF$V2)
 
 #------------------Merge test data-FINISH--------------------------------------------------
 
 
 #------------------Extract mean() and std() variables-START--------------------------------
 
-mergedTrainMeanStd <- cbind(subject=mergedTrainDF$subject, activity=mergedTrainDF$activity, mergedTrainDF[,grep("-mean\\(\\)", colnames(mergedTrainDF))], mergedTrainDF[,grep("-std()", colnames(mergedTrainDF))], stringsAsFactors=FALSE)
-mergedTestMeanStd <- cbind(subject=mergedTestDF$subject, activity=mergedTestDF$activity, mergedTestDF[,grep("-mean\\(\\)", colnames(mergedTestDF))], mergedTestDF[,grep("-std()", colnames(mergedTestDF))], stringsAsFactors=FALSE)
+mergedTrainMeanStd <- cbind(subject=mergedTrainDF$subject, activity=mergedTrainDF$activity, mergedTrainDF[,grep("mean\\(\\)", colnames(mergedTrainDF))], mergedTrainDF[,grep("std()", colnames(mergedTrainDF))], stringsAsFactors=FALSE)
+mergedTestMeanStd <- cbind(subject=mergedTestDF$subject, activity=mergedTestDF$activity, mergedTestDF[,grep("mean\\(\\)", colnames(mergedTestDF))], mergedTestDF[,grep("std()", colnames(mergedTestDF))], stringsAsFactors=FALSE)
 
 #------------------Extract mean() and std() variables-FINISH--------------------------------
 
 #------------------Combine Train and Test data sets and order them by subjects-START--------
 
-combinedMeanStdDF <- rbind(mergedTrainMeanStd, mergedTestMeanStd, stringsAsFactors = FALSE)
-sortedMeanStdDF <- combinedMeanStdDF[order(combinedMeanStdDF$subject),]
+unpreparedMeanStdDF <- rbind(mergedTrainMeanStd, mergedTestMeanStd, stringsAsFactors = FALSE)
+outputMeanStdDF <- unpreparedMeanStdDF[order(unpreparedMeanStdDF$subject),]
 
 #------------------Combine Train and Test data setsand order them by subjects-FINISH--------
+
+#------------------Getting the average of each variable for each activity and each subject--
+
+outputSummarizedDFMeans <- outputMeanStdDF %>% group_by(subject, activity) %>% summarize_each(c("mean"))
+
+#------------------Getting the average of each variable for each activity and each subject--
 
 #------------------Cleanup unsed variables-START--------------------------------------------
 
 rm("xTestDF", "yTestDF", "xTrainDF", "yTrainDF", "subjectTestDF", "subjectTrainDF", "featuresDF", "activityLabelsDF")
 rm("fileURL", "filePathActivityLabels", "filePathFeatures", "filePathSubjectTest", "filePathSubjectTrain", "filePathXTest", "filePathYTest", "filePathXTrain", "filePathYTrain")
-rm("mergedTrainActivities", "mergedTestActivities", "mergedTrainDF", "mergedTestDF", "mergedTrainMeanStd", "mergedTestMeanStd")
+rm("mergedTrainActivities", "mergedTestActivities", "mergedTrainDF", "mergedTestDF", "mergedTrainMeanStd", "mergedTestMeanStd", "unpreparedMeanStdDF")
 
 #------------------Cleanup unsed variables-START--------------------------------------------
 
-#------------------Getting the average of each variable for each activity and each subject--
-
-finalDFMeans <- sortedMeanStdDF %>% group_by(subject, activity) %>% summarise_each(funs(mean))
-
-#------------------Getting the average of each variable for each activity and each subject--
-
-#------------------Cleanup unsed variables-START--------------------------------------------
-
-rm("combinedMeanStdDF", "sortedMeanStdDF")
-
-#------------------Cleanup unsed variables-START--------------------------------------------
 
 write.table(downloadTime, outputPathTimestamp, row.names = FALSE, col.names = FALSE)
-write.csv(finalDFMeans, outputPathDataSet)
+write.csv(outputSummarizedDFMeans, outputPathDataSetMeans)
+write.csv(outputMeanStdDF, outputPathDataSetRaw)
 
-#print(featuresDF)
-#View(finalDFMeans)
-#print(head(featuresDF[,2]))
